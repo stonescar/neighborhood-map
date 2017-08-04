@@ -38,12 +38,6 @@ body {
     overflow-y: auto;
 }
 
-.list-group-item {
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
-}
-
 #map {
     height: 100%;
     padding: 0;

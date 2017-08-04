@@ -38,22 +38,8 @@
                         <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
                     </button>
                 </div>
-                <div class="group-list" id="spots-list">
-                    <a href="#" class="list-group-item">Distinctio</a>
-                    <a href="#" class="list-group-item">consectetur adipisicing</a>
-                    <a href="#" class="list-group-item">reiciendis ipsa</a>
-                    <a href="#" class="list-group-item">dolor sit</a>
-                    <a href="#" class="list-group-item">Lorem ipsum</a>
-                    <a href="#" class="list-group-item">Distinctio</a>
-                    <a href="#" class="list-group-item">consectetur adipisicing</a>
-                    <a href="#" class="list-group-item">reiciendis ipsa</a>
-                    <a href="#" class="list-group-item">dolor sit</a>
-                    <a href="#" class="list-group-item">Lorem ipsum</a>
-                    <a href="#" class="list-group-item">Distinctio</a>
-                    <a href="#" class="list-group-item">consectetur adipisicing</a>
-                    <a href="#" class="list-group-item">reiciendis ipsa</a>
-                    <a href="#" class="list-group-item">dolor sit</a>
-                    <a href="#" class="list-group-item">Lorem ipsum</a>
+                <div class="group-list" id="spots-list" data-bind="foreach: spotList">
+                    <a href="#" class="list-group-item" data-bind="text: $data.name"></a>
                 </div>
             </div>
             <div class="col-sm-9" id="map">
@@ -66,6 +52,7 @@
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/knockout-3.4.2.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/spots.js"></script>
     <script src="js/app.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyBn2sIbk7ZZG0AHTUD4Cvl60eV8wwzTB24&v=3&callback=initMap"></script>
 </body>
