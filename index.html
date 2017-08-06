@@ -38,8 +38,13 @@
                         <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
                     </button>
                 </div>
-                <div class="group-list" id="spots-list" data-bind="foreach: spotList">
-                    <a href="#" class="list-group-item" data-bind="text: $data.name"></a>
+                <div class="list-group" id="spots-list" data-bind="foreach: spotList">
+                    <!-- ko if: $parent.activeSpot() == $data -->
+                    <a href="#" class="list-group-item active" data-bind="click: $parent.setActiveSpot, text: $data.name"></a>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.activeSpot() != $data -->
+                    <a href="#" class="list-group-item" data-bind="click: $parent.setActiveSpot, text: $data.name"></a>
+                    <!-- /ko -->
                 </div>
             </div>
             <div class="col-sm-9" id="map">

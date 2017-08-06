@@ -15,6 +15,11 @@ body {
     margin: 0;
 }
 
+/* fixing a bug in bootstrap  */
+.list-group-item.active {
+    border: 1px solid transparent!important;
+}
+
 .container {
     position: absolute;
     width: 100%;
