@@ -2,20 +2,36 @@ var Spot = function(data) {
     this.name = ko.observable(data.name);
 }
 
+var my = {};
 
 var viewModel = function() {
     var self = this;
     this.spotList = ko.observableArray([]);
     this.activeSpot = ko.observable();
 
-    spots.forEach(function(spot) { // `spots` imported from `spots.js`
-        self.spotList.push(new Spot(spot));
-    });
+    for (var i = 0; i < spots.length; i++) {
+        newSpot = new Spot(spots[i]);
+        newSpot.id = i;
+        self.spotList.push(newSpot);
+    }
 
 
     this.setActiveSpot = function(spot) {
         self.activeSpot(spot);
+        populateInfoWindow(markers[spot.id], infoWindow);
+    }
+
+    this.setActiveFromMarker = function(id) {
+        spot = self.getSpotById(id);
+        self.activeSpot(spot);
+    }
+
+    this.getSpotById = function(id) {
+        return self.spotList()[id];
     }
 }
 
-ko.applyBindings(new viewModel());
+// This makes attributes and methods accessible outside the
+// viewModel, using the `my.viewModel` name space
+my.viewModel = new viewModel();
+ko.applyBindings(my.viewModel);

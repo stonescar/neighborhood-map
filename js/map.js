@@ -1,4 +1,5 @@
 var map;
+var infoWindow;
 var markers = [];
 
 // Initialize map
@@ -10,7 +11,7 @@ function initMap() {
     
     var bounds = new google.maps.LatLngBounds();
 
-    var infoWindow = new google.maps.InfoWindow();
+    infoWindow = new google.maps.InfoWindow();
 
     // Make markers from `spots` in `spots.js`
     for (var i = 0; i < spots.length; i++) {
@@ -28,8 +29,9 @@ function initMap() {
         marker.setMap(map);
         markers.push(marker);
 
-        marker.addListener('click', function() {
+        marker.addListener('click', function(e) {
             populateInfoWindow(this, infoWindow);
+            my.viewModel.setActiveFromMarker(this.id);
         });
     }
 
@@ -79,6 +81,7 @@ function populateInfoWindow(marker, infowindow) {
         
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
+            my.viewModel.activeSpot(null);
         });
     }
 }
