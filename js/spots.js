@@ -28,16 +28,20 @@ var spots = [
         location: {lat: 63.450705, lng: 10.382645}
     },
     {
-        name: 'Torvet',
-        location: {lat: 63.430320, lng: 10.394924}
+        name: 'Ringve Museum',
+        location: {lat: 63.447326, lng: 10.454626}
     },
     {
-        name: 'Nordre gate',
-        location: {lat: 63.432311, lng: 10.397509}
+        name: 'Pirbadet',
+        location: {lat: 63.440294, lng: 10.400506}
     },
     {
-        name: 'Solsiden',
-        location: {lat: 63.434635, lng: 10.411799}
+        name: 'Vitensenteret',
+        location: {lat: 63.430092, lng: 10.400735}
+    },
+    {
+        name: 'Sverresborg Folkemuseum',
+        location: {lat: 63.421189, lng: 10.356902}
     }
 ]
 
