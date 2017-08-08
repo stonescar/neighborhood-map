@@ -8,6 +8,7 @@ var viewModel = function() {
     var self = this;
     this.spotList = ko.observableArray([]);
     this.activeSpot = ko.observable();
+    this.filterQuery = ko.observable('');
 
     for (var i = 0; i < spots.length; i++) {
         newSpot = new Spot(spots[i]);
@@ -28,6 +29,14 @@ var viewModel = function() {
 
     this.getSpotById = function(id) {
         return self.spotList()[id];
+    }
+
+    this.match = function(spot) {
+        lo_name = spot.name().toLowerCase();
+        lo_query = self.filterQuery().toLowerCase();
+        if (lo_name.includes(lo_query) || lo_query == '') {
+            return true;
+        }
     }
 }
 
