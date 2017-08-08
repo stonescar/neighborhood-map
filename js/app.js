@@ -35,7 +35,10 @@ var viewModel = function() {
         lo_name = spot.name().toLowerCase();
         lo_query = self.filterQuery().toLowerCase();
         if (lo_name.includes(lo_query) || lo_query == '') {
+            showMarker(spot.id);
             return true;
+        } else {
+            hideMarker(spot.id);
         }
     }
 }

@@ -145,3 +145,13 @@ function getPlaceDetails(marker, callback) {
         }
     });
 }
+
+function showMarker(id) {
+    if (markers[0]) {
+        markers[id].setMap(map);
+    }
+}
+
+function hideMarker(id) {
+    markers[id].setMap(null);
+}

@@ -49,11 +49,8 @@ body {
     color: #2b3e50;
 }
 
-.form-group {
-    width: 100%;
-    display: flex;
-    margin: 0;
-    height: 39px;
+.input-group-addon {
+    background: #df691a;
 }
 
 /* INFOWINDOW ELEMENTS */

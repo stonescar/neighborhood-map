@@ -31,12 +31,10 @@
         </nav>
         <div class="row">
             <div class="col-sm-3 spots-menu" id="spots-menu">
-                <div class="form-group">
+                <div class="input-group">
                     <label for="filter-text" class="sr-only">Filter spots</label>
+                    <span class="input-group-addon primary"><span class="glyphicon glyphicon-filter"></span></span>
                     <input type="text" id="filter-text" class="form-control" placeholder="Filter spots" data-bind="textInput: filterQuery, valueUpdate: search">
-                    <button id="filter-button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-                    </button>
                 </div>
                 <div class="list-group" id="spots-list" data-bind="foreach: spotList">
                 <!-- ko if: $parent.match($data) -->
