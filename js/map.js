@@ -95,6 +95,7 @@ function populateInfoWindow(marker, infowindow) {
 }
 
 function openInfoWindow(marker) {
+    infoWindow.setMap(null);
     marker.setAnimation(google.maps.Animation.BOUNCE);
     if (my.viewModel.activeSpot() != my.viewModel.getSpotById(marker.id)) {
         my.viewModel.setActiveFromMarker(marker.id);
