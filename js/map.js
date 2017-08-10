@@ -30,13 +30,14 @@ function initMap() {
         markers.push(marker);
 
         marker.addListener('click', function() {
-            var self = this;
-            this.setAnimation(google.maps.Animation.BOUNCE);
-            my.viewModel.setActiveFromMarker(self.id);
-            window.setTimeout(function() {
-                self.setAnimation(null);
-                populateInfoWindow(self, infoWindow);
-            }, 700);
+            // var self = this;
+            // this.setAnimation(google.maps.Animation.BOUNCE);
+            // my.viewModel.setActiveFromMarker(self.id);
+            // window.setTimeout(function() {
+            //     self.setAnimation(null);
+            //     populateInfoWindow(self, infoWindow);
+            // }, 700);
+            openInfoWindow(this);
         });
     }
 
@@ -91,6 +92,17 @@ function populateInfoWindow(marker, infowindow) {
             my.viewModel.activeSpot(null);
         });
     }
+}
+
+function openInfoWindow(marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    if (my.viewModel.activeSpot() != my.viewModel.getSpotById(marker.id)) {
+        my.viewModel.setActiveFromMarker(marker.id);
+    }
+    window.setTimeout(function() {
+        marker.setAnimation(null);
+        populateInfoWindow(marker, infoWindow);
+    }, 700);
 }
 
 function getPlaceDetails(marker, callback) {

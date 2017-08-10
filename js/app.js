@@ -7,7 +7,7 @@ var my = {};
 var viewModel = function() {
     var self = this;
     this.spotList = ko.observableArray([]);
-    this.activeSpot = ko.observable();
+    this.activeSpot = ko.observable(null);
     this.filterQuery = ko.observable('');
 
     for (var i = 0; i < spots.length; i++) {
@@ -19,7 +19,7 @@ var viewModel = function() {
 
     this.setActiveSpot = function(spot) {
         self.activeSpot(spot);
-        populateInfoWindow(markers[spot.id], infoWindow);
+        openInfoWindow(markers[spot.id]);
     }
 
     this.setActiveFromMarker = function(id) {
