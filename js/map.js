@@ -29,9 +29,14 @@ function initMap() {
         marker.setMap(map);
         markers.push(marker);
 
-        marker.addListener('click', function(e) {
-            populateInfoWindow(this, infoWindow);
-            my.viewModel.setActiveFromMarker(this.id);
+        marker.addListener('click', function() {
+            var self = this;
+            this.setAnimation(google.maps.Animation.BOUNCE);
+            my.viewModel.setActiveFromMarker(self.id);
+            window.setTimeout(function() {
+                self.setAnimation(null);
+                populateInfoWindow(self, infoWindow);
+            }, 700);
         });
     }
 
@@ -75,6 +80,8 @@ function populateInfoWindow(marker, infowindow) {
             }
             content += '</div></div></div>'
             infowindow.setContent(content);
+            // Make map adjust to fit infowindow
+            infowindow.open(map, marker);
         }
 
         infowindow.open(map, marker);
