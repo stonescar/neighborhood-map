@@ -33,7 +33,7 @@ var spots = [
     },
     {
         name: 'Pirbadet',
-        location: {lat: 63.440294, lng: 10.400506}
+        location: {lat: 63.440638, lng: 10.400683}
     },
     {
         name: 'Vitensenteret',

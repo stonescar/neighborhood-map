@@ -54,33 +54,6 @@ body {
 }
 
 /* INFOWINDOW ELEMENTS */
-.rating {
-    float: right;
-    margin-top: -1.5em;
-    font-size: 1.5em;
-    font-weight: 400;
-}
-
-.spot-image {
-    border: 1px solid #2b3e50;
-    max-width: 100%!important;
-}
-
-.contact {
-    margin-bottom: 10px;
-    font-size: 1.2em;
-}
-
-.review {
-    font-size: 1.3em;
-    opacity: 0.8;
-}
-
-.review > p {
-    font-style: italic;
-}
-
-.review > footer {
-    color: inherit;
-    opacity: 0.4;
+h4 > small {
+    color: #888;
 }
