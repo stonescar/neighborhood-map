@@ -45,7 +45,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
         infowindow.setContent('<h4>' + marker.title + '</h4><p>Fetching details...</p>');
         if (!marker.fs_id) {
-            getPlaceDetails(marker, setWindowContent);
+            getFsVenue(marker, setWindowContent);
         } else {
             setWindowContent();
         }
@@ -61,7 +61,7 @@ function populateInfoWindow(marker, infowindow) {
                 content += '<br><a href="' + marker.webpage + '" target="new">' + marker.webpage + '</a>';
             }
             content += '</address>';
-            content += '<button class="btn btn-sm btn-primary>More info...</button>';
+            content += '<button class="btn btn-sm btn-primary" onclick="openModal()">More info...</button>';
             
             
             infowindow.setContent(content);
@@ -73,7 +73,7 @@ function populateInfoWindow(marker, infowindow) {
         
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
-            my.viewModel.activeSpot(null);
+            my.viewModel.clearActiveSpot();
         });
     }
 }
@@ -90,7 +90,7 @@ function openInfoWindow(marker) {
     }, 700);
 }
 
-function getPlaceDetails(marker, callback) {
+function getFsVenue(marker, callback) {
     var query = marker.title;
     var ll = marker.getPosition().lat() + ',' + marker.getPosition().lng();
     var url = 'https://api.foursquare.com/v2/venues/search?';
@@ -119,10 +119,33 @@ function getPlaceDetails(marker, callback) {
             facebook: venue.contact.facebook,
             twitter: venue.contact.twitter
         }
-        console.log(marker);
         callback();
     }).fail(function() {
         infoWindow.setContent('<h4>' + query + '</h4><p>Could not get details for ' + query + '</p>');
+    });
+}
+
+function getFsTips(marker, callback) {
+    url = 'https://api.foursquare.com/v2/venues/' + marker.fs_id + '/tips';
+    url += '?client_id=ZZTS53CJLJJGNTDJO0LEAYCWHVFO4DR4MVA2IOKNBDRPX1VK';
+    url += '&client_secret=BQK22KCLX2TVVVMDDZZGZKSCOXWO054PG13PYKLPJI5QPBCC';
+    url += '&sort=popular&limit=3&v=20170809';
+    $.getJSON(url, function(data) {
+        var tip = data.response.tips.items[0];
+        marker.fsReview = {};
+        marker.fsReview = {
+            text: tip.text,
+            user: {
+                name: tip.user.firstName + ' ' + (tip.user.lastName || ''),
+                picture: tip.user.photo.prefix + '30x30' + tip.user.photo.suffix
+            },
+            url: tip.canonicalUrl
+        };
+        callback();
+    }).fail(function(data) {
+        console.log('Tips request failed');
+        console.log(data);
+        marker.fsTipsFailed = true;
     });
 }
 
@@ -134,4 +157,25 @@ function showMarker(id) {
 
 function hideMarker(id) {
     markers[id].setMap(null);
+}
+
+function openModal() {
+    if (!infoWindow.marker.fsReview) {
+        getFsTips(infoWindow.marker, showModal);
+    } else {
+        showModal();
+    }
+    function showModal() {
+        infoWindow.setMap(null);
+        infoWindow.marker = null;
+        if (!my.viewModel.activeSpot().marker()) {
+            my.viewModel.activeSpot().marker(markers[my.viewModel.activeSpot().id]);
+        }
+        var marker = my.viewModel.activeSpot().marker();
+        $('#infoModal').modal('show');
+        $('#fs-review').html('<h4>Top tip from Foursquare</h4><blockquote class="blockquote-reverse">' +
+            marker.fsReview.text + '<footer><img src="' + marker.fsReview.user.picture +
+            '"><a href="' + marker.fsReview.url + '" target="new">' + marker.fsReview.user.name +
+            '</a></footer></blockquote>');
+    }
 }

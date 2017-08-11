@@ -1,5 +1,7 @@
-var Spot = function(data) {
+var Spot = function(data, id, marker) {
     this.name = ko.observable(data.name);
+    this.id = id;
+    this.marker = ko.observable(marker);
 }
 
 var my = {};
@@ -11,8 +13,7 @@ var viewModel = function() {
     this.filterQuery = ko.observable('');
 
     for (var i = 0; i < spots.length; i++) {
-        newSpot = new Spot(spots[i]);
-        newSpot.id = i;
+        newSpot = new Spot(spots[i], i, markers[i]);
         self.spotList.push(newSpot);
     }
 
@@ -20,6 +21,10 @@ var viewModel = function() {
     this.setActiveSpot = function(spot) {
         self.activeSpot(spot);
         openInfoWindow(markers[spot.id]);
+    }
+
+    this.clearActiveSpot = function() {
+        self.activeSpot(null);
     }
 
     this.setActiveFromMarker = function(id) {
@@ -42,6 +47,10 @@ var viewModel = function() {
         }
     }
 }
+
+$(document).on('hide.bs.modal', '#infoModal', function() {
+        my.viewModel.clearActiveSpot();
+});
 
 // This makes attributes and methods accessible outside the
 // viewModel, using the `my.viewModel` name space
