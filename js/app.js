@@ -46,6 +46,10 @@ var viewModel = function() {
             hideMarker(spot.id);
         }
     }
+
+    this.clearFilter = function() {
+        self.filterQuery('');
+    }
 }
 
 $(document).on('hide.bs.modal', '#infoModal', function() {

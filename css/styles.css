@@ -53,6 +53,17 @@ body {
     background: #df691a;
 }
 
+#clear-filter {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    bottom: 0;
+    height: 15px;
+    z-index: 99;
+    margin: auto;
+    cursor: pointer;
+}
+
 /* INFOWINDOW ELEMENTS */
 h4 > small {
     color: #888;
