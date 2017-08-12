@@ -50,6 +50,9 @@ var viewModel = function() {
 
 $(document).on('hide.bs.modal', '#infoModal', function() {
         my.viewModel.clearActiveSpot();
+        // Clear dynamic DOM elements
+        $('#flickr').html('');
+        $('#fs-review').html('');
 });
 
 // This makes attributes and methods accessible outside the

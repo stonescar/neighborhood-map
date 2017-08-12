@@ -100,7 +100,6 @@ function getFsVenue(marker, callback) {
     url += '&client_secret=BQK22KCLX2TVVVMDDZZGZKSCOXWO054PG13PYKLPJI5QPBCC';
     url += '&v=20170808';
     $.getJSON(url, function(data) {
-        console.log(data);
         for (var i = 0; i < data.response.venues.length; i++) {
             if (data.response.venues[i].name == query) {
                 var venue = data.response.venues[i];
@@ -149,6 +148,30 @@ function getFsTips(marker, callback) {
     });
 }
 
+function getFlickr(marker, callback) {
+    url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search';
+    url += '&api_key=baeb88409c972395cb9304f5e6ace9a5';
+    url += '&text=' + marker.title + ' trondheim';
+    url += '&sort=interestingness-desc&content_type=1&media=photos';
+    url += '&extras=owner_name%2C+url_m&per_page=10';
+    url += '&format=json&nojsoncallback=1';
+    $.getJSON(url, function(data) {
+        var photos = data.photos.photo;
+        marker.flickr = [];
+        for (var i = 0; i < photos.length; i++) {
+            var photo = {
+                photographer: photos[i].ownername,
+                url: photos[i].url_m,
+                title: photos[i].title,
+                heigth: photos[i].height_m,
+                width: photos[i].width_m
+            };
+            marker.flickr.push(photo);
+        }
+        callback();
+    });
+}
+
 function showMarker(id) {
     if (markers[0]) {
         markers[id].setMap(map);
@@ -161,21 +184,34 @@ function hideMarker(id) {
 
 function openModal() {
     if (!infoWindow.marker.fsReview) {
-        getFsTips(infoWindow.marker, showModal);
+        getFlickr(infoWindow.marker, populateDomFlickr);
+        getFsTips(infoWindow.marker, populateDomFsTip);
     } else {
-        showModal();
+        populateDomFlickr()
+        populateDomFsTip();
     }
+    showModal();
+
     function showModal() {
         infoWindow.setMap(null);
         infoWindow.marker = null;
         if (!my.viewModel.activeSpot().marker()) {
             my.viewModel.activeSpot().marker(markers[my.viewModel.activeSpot().id]);
         }
-        var marker = my.viewModel.activeSpot().marker();
         $('#infoModal').modal('show');
+    }
+    function populateDomFsTip() {
+        var marker = my.viewModel.activeSpot().marker();
         $('#fs-review').html('<h4>Top tip from Foursquare</h4><blockquote class="blockquote-reverse">' +
             marker.fsReview.text + '<footer><img src="' + marker.fsReview.user.picture +
             '"><a href="' + marker.fsReview.url + '" target="new">' + marker.fsReview.user.name +
             '</a></footer></blockquote>');
+    }
+    function populateDomFlickr() {
+        var marker = my.viewModel.activeSpot().marker();
+        $('#flickr').html('<h4>Pictures from flickr</h4><div id="picture-reel"></div>');
+        for (var i = 0; i < marker.flickr.length; i++) {
+            $('#picture-reel').append('<img src="' + marker.flickr[i].url + '" title="' + marker.flickr[i].title + ' by ' + marker.flickr[i].photographer + '">');
+        }
     }
 }

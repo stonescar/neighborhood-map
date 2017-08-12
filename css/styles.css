@@ -72,4 +72,16 @@ blockquote > footer > img {
     -webkit-border-radius: 50%;
             border-radius: 50%;
     margin-right: 5px;
-} 
+}
+
+#picture-reel {
+    height: 150px;
+    -ms-overflow-y: auto;
+        overflow-y: auto;
+        white-space: nowrap;
+}
+
+#picture-reel > img {
+    height: 100%;
+    display: inline;
+}
