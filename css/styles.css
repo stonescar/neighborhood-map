@@ -70,6 +70,31 @@ h4 > small {
 }
 
 /* MODAL ELEMENTS*/
+.modal-header {
+    position: relative;
+}
+
+#fs-rating {
+    display: block;
+    position: absolute;
+    right: 50px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    font-size: 20px;
+    background: green;
+    padding: 3px 10px;
+    box-sizing: content-box;
+    cursor: default;
+}
+
+#fs-rating-of {
+    font-size: 10px;
+    vertical-align: super;
+    margin-left: 2px;
+}
+
 blockquote {
     font-size: 16px;
     border-color: #485563!important;
@@ -83,6 +108,10 @@ blockquote > footer > img {
     -webkit-border-radius: 50%;
             border-radius: 50%;
     margin-right: 5px;
+}
+
+#flickr {
+    margin-bottom: 25px;
 }
 
 #picture-reel {

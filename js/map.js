@@ -172,6 +172,27 @@ function getFlickr(marker, callback) {
     });
 }
 
+function getFsVenueDetails(marker, callback) {
+    url = 'https://api.foursquare.com/v2/venues/' + marker.fs_id;
+    url += '?client_id=ZZTS53CJLJJGNTDJO0LEAYCWHVFO4DR4MVA2IOKNBDRPX1VK';
+    url += '&client_secret=BQK22KCLX2TVVVMDDZZGZKSCOXWO054PG13PYKLPJI5QPBCC';
+    url += '&v=20170809';
+    $.getJSON(url, function(data) {
+        venue = data.response.venue;
+        console.log(venue);
+        marker.fs_url = venue.canonicalUrl;
+        marker.fs_rating = venue.rating.toFixed(1);
+        if (venue.hours) {
+            marker.hours = venue.hours;
+        }
+
+        callback();
+    }).fail(function (data) {
+        console.log('failed');
+        console.log(data);
+    });
+}
+
 function showMarker(id) {
     if (markers[0]) {
         markers[id].setMap(map);
@@ -186,9 +207,11 @@ function openModal() {
     if (!infoWindow.marker.fsReview) {
         getFlickr(infoWindow.marker, populateDomFlickr);
         getFsTips(infoWindow.marker, populateDomFsTip);
+        getFsVenueDetails(infoWindow.marker, populateDomFsVenueDetails);
     } else {
         populateDomFlickr()
         populateDomFsTip();
+        populateDomFsVenueDetails();
     }
     showModal();
 
@@ -213,5 +236,12 @@ function openModal() {
         for (var i = 0; i < marker.flickr.length; i++) {
             $('#picture-reel').append('<img src="' + marker.flickr[i].url + '" title="' + marker.flickr[i].title + ' by ' + marker.flickr[i].photographer + '">');
         }
+    }
+    function populateDomFsVenueDetails() {
+        var marker = my.viewModel.activeSpot().marker();
+        if (marker.fs_rating) {
+            $('#fs-rating').prepend(marker.fs_rating).show();
+        }
+
     }
 }
