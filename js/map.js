@@ -179,7 +179,6 @@ function getFsVenueDetails(marker, callback) {
     url += '&v=20170809';
     $.getJSON(url, function(data) {
         venue = data.response.venue;
-        console.log(venue);
         marker.fs_url = venue.canonicalUrl;
         marker.fs_rating = venue.rating.toFixed(1);
         if (venue.hours) {
@@ -190,6 +189,18 @@ function getFsVenueDetails(marker, callback) {
     }).fail(function (data) {
         console.log('failed');
         console.log(data);
+    });
+}
+
+function getWiki(marker) {
+    $.ajax({
+        url: 'https://en.wikipedia.org/w/api.php?action=opensearch'+
+             '&format=json&search=' + marker.title,
+        dataType: "jsonp",
+        success: function(data) {
+            console.log(data);
+            marker.wiki = data[3][0];
+        }
     });
 }
 
@@ -205,6 +216,7 @@ function hideMarker(id) {
 
 function openModal() {
     if (!infoWindow.marker.fsReview) {
+        getWiki(infoWindow.marker);
         getFlickr(infoWindow.marker, populateDomFlickr);
         getFsTips(infoWindow.marker, populateDomFsTip);
         getFsVenueDetails(infoWindow.marker, populateDomFsVenueDetails);
@@ -234,14 +246,56 @@ function openModal() {
         var marker = my.viewModel.activeSpot().marker();
         $('#flickr').html('<h4>Pictures from flickr</h4><div id="picture-reel"></div>');
         for (var i = 0; i < marker.flickr.length; i++) {
-            $('#picture-reel').append('<img src="' + marker.flickr[i].url + '" title="' + marker.flickr[i].title + ' by ' + marker.flickr[i].photographer + '">');
+            $('#picture-reel').append('<img src="' + marker.flickr[i].url + '" title="' +
+                marker.flickr[i].title + ' by ' + marker.flickr[i].photographer + '">');
         }
     }
     function populateDomFsVenueDetails() {
         var marker = my.viewModel.activeSpot().marker();
+        // Add rating
         if (marker.fs_rating) {
             $('#fs-rating').prepend(marker.fs_rating).show();
         }
-
+        // Add address + phone
+        $('#fs-info').html('<h4>Details about ' + marker.title +
+            '</h4><div class="row" id="fs-info-cont"></div>');
+        $('#fs-info-cont').append('<div class="col-xs-4"><h5>Address:</h5><address id="fs-address"><strong>' + 
+            marker.address[0] + '</strong><br>' + 
+            marker.address[1] + '<br>' + 
+            marker.address[2] + '</address></div>');
+        if (marker.phone) {
+            $('#fs-address').append('<br>Tel: ' + marker.phone);
+        }
+        // Add opening hours
+        if (marker.hours) {
+            $('#fs-info-cont').append('<div class="col-xs-4"><h5>Opening hours</h5>' +
+                '<dl id="hours"></dl></div>');
+            for (var i = 0; i < marker.hours.timeframes.length; i++) {
+                var time = marker.hours.timeframes[i];
+                $('#hours').append('<dt>' + time.days + '</dt><dd>' + time.open[0].renderedTime + '</dd>');
+            }
+        }
+        // Add links
+        $('#fs-info-cont').append('<div class="col-xs-4" id="links"><h5>Links</h5></div>');
+        if (marker.webpage) {
+            $('#links').append('<a href="' + marker.webpage +
+                '" class="btn btn-primary btn-xs btn-block" target="new">Webpage</a>');
+        }
+        $('#links').append('<a href="' + marker.fs_url +
+            '" class="btn btn-danger btn-xs btn-block" target="new">Foursquare page</a>');
+        if (marker.social.facebook) {   
+            $('#links').append('<a href="http://facebook.com/' + marker.social.facebook +
+                '" class="btn btn-info btn-xs btn-block" target="new">Facebook page</a>');
+        }
+        if (marker.social.twitter) {
+            $('#links').append('<a href="http://twitter.com/' + marker.social.twitter +
+                '" class="btn btn-info btn-xs btn-block" target="new">Twitter</a>');
+        }
+        $('#links').append('<a href="https://www.flickr.com/search/?text=' + marker.title +
+            '" class="btn btn-success btn-xs btn-block" target="new">flickr</a>');
+        if (marker.wiki) {
+            $('#links').append('<a href="' + marker.wiki +
+                '" class="btn btn-warning btn-xs btn-block" target="new">Wikipedia</a>');
+        }
     }
 }
