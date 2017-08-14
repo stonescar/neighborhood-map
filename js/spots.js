@@ -42,6 +42,42 @@ var spots = [
     {
         name: 'Sverresborg Folkemuseum',
         location: {lat: 63.421189, lng: 10.356902}
+    },
+    {
+        name: 'Solsiden',
+        location: {lat:63.434740, lng: 10.411413}
+    },
+    {
+        name: 'Studentersamfundet',
+        location: {lat: 63.422495, lng: 10.395008}
+    },
+    {
+        name: 'Korsvika',
+        location: {lat: 63.450020, lng: 10.434264}
+    },
+    {
+        name: 'Ladestien',
+        location: {lat: 63.456288, lng: 10.452075}
+    },
+    {
+        name: 'Ravnkloa',
+        location: {lat: 63.433820, lng: 10.392457}
+    },
+    {
+        name: 'Skistua',
+        location: {lat: 63.417495, lng: 10.261402}
+    },
+    {
+        name: 'Bakklandet',
+        location: {lat: 63.432122, lng: 10.406725}
+    },
+    {
+        name: 'Torvet',
+        location: {lat: 63.430320, lng: 10.394924}
+    },
+    {
+        name: 'Olavshallen',
+        location: {lat: 63.433772, lng: 10.404149}
     }
 ]
 
