@@ -198,10 +198,50 @@ function getWiki(marker) {
              '&format=json&search=' + marker.title,
         dataType: "jsonp",
         success: function(data) {
-            console.log(data);
             marker.wiki = data[3][0];
         }
     });
+}
+
+function getWeather() {
+    var $w = $('#weather');
+    if ($w.is(':empty')) {
+        var url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880' +
+            '&appid=18749f71cbf50a133071442141f704eb&cnt=7&units=metric';
+        $.getJSON(url, function (data) {
+            for (var i = 0; i < data.list.length; i++) {
+                var day = data.list[i];
+
+                var date = new Date(day.dt*1000);
+                var weekDay = getWeekDay(date);
+                var fullDate = getFullDate(date);
+                var temp = [Math.round(day.temp.min), Math.round(day.temp.max)];
+                var weather = day.weather[0];
+
+                $w.append('<div class="weather-day"><h5 title="' + fullDate + '">' + weekDay + '</h5>'+
+                    '<img src="http://openweathermap.org/img/w/' + weather.icon + '.png" title="' +
+                    weather.description + '"><span class="weather-temp" title="Min/max temperature (°C)">' + 
+                    temp[0] + '° / ' + temp[1] + '°</div>');
+            }
+
+            function getWeekDay(date) {
+                var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+                    'Thursday', 'Friday', 'Saturday'];
+                return weekDays[date.getDay()];
+            }
+            function getFullDate(date) {
+                var day = date.getDate();
+                var month = date.getMonth();
+                var hour = date.getHours();
+                preDay = getWeekDay(date).substring(0,3);
+                var months = ['January', 'February', 'March', 'April', 'May', 'June',
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+                return preDay + ' ' + day + '. ' + months[month] + ' @ ' + hour + ':00';
+            }
+        }).fail(function(data) {
+            $w.text('Could not get weather data');
+        });
+    }
 }
 
 function showMarker(id) {
@@ -259,7 +299,8 @@ function openModal() {
         // Add address + phone
         $('#fs-info').html('<h4>Details about ' + marker.title +
             '</h4><div class="row" id="fs-info-cont"></div>');
-        $('#fs-info-cont').append('<div class="col-xs-4"><h5>Address:</h5><address id="fs-address"><strong>' + 
+        $('#fs-info-cont').append('<div class="col-xs-4" id="address-col"><h5>Address:</h5>' +
+            '<address id="fs-address"><strong>' + 
             marker.address[0] + '</strong><br>' + 
             marker.address[1] + '<br>' + 
             marker.address[2] + '</address></div>');
@@ -268,7 +309,7 @@ function openModal() {
         }
         // Add opening hours
         if (marker.hours) {
-            $('#fs-info-cont').append('<div class="col-xs-4"><h5>Opening hours</h5>' +
+            $('#fs-info-cont').append('<div class="col-xs-4" id="hours-col"><h5>Opening hours</h5>' +
                 '<dl id="hours"></dl></div>');
             for (var i = 0; i < marker.hours.timeframes.length; i++) {
                 var time = marker.hours.timeframes[i];

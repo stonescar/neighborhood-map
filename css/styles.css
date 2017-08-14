@@ -15,6 +15,14 @@ body {
     margin: 0;
 }
 
+.icon-link-description {
+    display: none;
+}
+
+.icon-link:hover .icon-link-description {
+    display: inline;
+}
+
 /* fixing a bug in bootstrap  */
 .list-group-item.active {
     border: 1px solid transparent!important;
@@ -69,6 +77,23 @@ h4 > small {
     color: #888;
 }
 
+/* MODAL WEATHER*/
+#weather {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.weather-day {
+    display: inline-block;
+    width: calc(100% / 7);
+    min-width: calc(558px / 7);
+    text-align: center;
+}
+
+.weather-temp {
+    display: block;
+}
+
 /* MODAL ELEMENTS*/
 .modal-header {
     position: relative;
@@ -120,8 +145,8 @@ blockquote > footer > img {
 
 #picture-reel {
     height: 150px;
-    -ms-overflow-y: auto;
-        overflow-y: auto;
+    -ms-overflow-x: auto;
+        overflow-x: auto;
         white-space: nowrap;
 }
 
@@ -135,4 +160,24 @@ blockquote > footer > img {
     float: left;
     font-size: 10px;
     line-height: 1.2;
+}
+
+/* BREAKPOINTS */
+@media screen and (max-width: 550px) {
+    #address-col {
+        width: 50%;
+    }
+
+    #hours-col {
+        width: 50%;
+    }
+
+    #links {
+        width: 100%!important;
+    }
+
+    #links > .btn-xs {
+        padding: 2px;
+        font-size: 0.9em;
+    }
 }

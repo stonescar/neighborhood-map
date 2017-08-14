@@ -27,6 +27,16 @@
                     </button>
                     <a href="#" class="navbar-brand"><b>Neighborhood map</b></a>
                 </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" class="icon-link" id="weather-btn" data-toggle="modal" data-target="#weatherModal" onclick="getWeather()">
+                                <span class="glyphicon glyphicon-cloud"></span>
+                                <span class="icon-link-description">Weather</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <div class="row">
@@ -83,6 +93,27 @@
         </div>
     </div>
     <!-- /ko -->
+
+    <!-- Weather modal -->
+    <div class="modal fade" id="weatherModal" tabindex="-1" role="dialog" aria-labelledby="weatherModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="weatherModalLabel">Weekly forcast for Trondheim</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="weather"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-info text-left">
+                        Weather data provided by <a href="http://openweathermap.org">OpenWeatherMap</a>
+                    </div>
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/lib/jquery-3.2.1.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
