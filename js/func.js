@@ -44,6 +44,7 @@ function openModal() {
         populateDomFsVenueDetails();
     }
     showModal();
+}
 
 function showModal() {
     // Hide infowindow
