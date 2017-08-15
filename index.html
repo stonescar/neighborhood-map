@@ -46,12 +46,7 @@
                 </div>
                 <div class="list-group" id="spots-list" data-bind="foreach: spotList">
                 <!-- ko if: $parent.match($data) -->
-                    <!-- ko if: $parent.activeSpot() == $data -->
-                    <a href="#" class="list-group-item active" data-bind="click: $parent.setActiveSpot, text: $data.name"></a>
-                    <!-- /ko -->
-                    <!-- ko if: $parent.activeSpot() != $data -->
-                    <a href="#" class="list-group-item" data-bind="click: $parent.setActiveSpot, text: $data.name"></a>
-                    <!-- /ko -->
+                    <a href="#" class="list-group-item active" data-bind="click: $parent.setActiveSpot, text: $data.name, css: { active: $parent.activeSpot() == $data }"></a>
                 <!-- /ko -->
                 </div>
             </div>
