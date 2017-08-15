@@ -4,7 +4,6 @@ var Spot = function(data, id, marker) {
     this.marker = ko.observable(marker);
 }
 
-var my = {};
 
 var viewModel = function() {
     var self = this;
@@ -12,6 +11,7 @@ var viewModel = function() {
     this.activeSpot = ko.observable(null);
     this.filterQuery = ko.observable('');
 
+    // Create spots from `spots.js`
     for (var i = 0; i < spots.length; i++) {
         newSpot = new Spot(spots[i], i, markers[i]);
         self.spotList.push(newSpot);
@@ -29,6 +29,7 @@ var viewModel = function() {
     }
 
     this.setActiveFromMarker = function(id) {
+        // Set correct spot as activ when clicking a marker
         spot = self.getSpotById(id);
         self.activeSpot(spot);
     }
@@ -38,6 +39,7 @@ var viewModel = function() {
     }
 
     this.match = function(spot) {
+        // Checks to see if spot name matches filter query and shows/hides map markers accordingly
         lo_name = spot.name().toLowerCase();
         lo_query = self.filterQuery().toLowerCase();
         if (lo_name.includes(lo_query) || lo_query == '') {
@@ -55,5 +57,8 @@ var viewModel = function() {
 
 // This makes attributes and methods accessible outside the
 // viewModel, using the `my.viewModel` name space
+var my = {};
 my.viewModel = new viewModel();
+
+// Apply knockout bindings
 ko.applyBindings(my.viewModel);
