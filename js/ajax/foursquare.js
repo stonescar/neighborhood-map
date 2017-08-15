@@ -49,7 +49,6 @@ function getFsTips(marker, callback) {
     $.getJSON(url, function(data) {
         if (data.response.tips.items.length > 0) {
             var tip = data.response.tips.items[0];
-            marker.fsReview = {};
             marker.fsReview = {
                 text: tip.text,
                 user: {
@@ -79,7 +78,10 @@ function getFsVenueDetails(marker, callback) {
         if (venue.hours) {
             marker.hours = venue.hours;
         }
-        callback();
+        // Give more time to get wikipedia url before populating DOM
+        window.setTimeout(function() {
+            callback()
+        }, 200);
     }).fail(function() {
         callback();
     });
