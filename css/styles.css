@@ -48,7 +48,7 @@ body {
 
 #spots-list {
     height: 100%;
-    overflow-y: auto;
+    position: relative;
 }
 
 #map {
@@ -79,7 +79,8 @@ h4 > small {
 
 /* MODAL WEATHER*/
 #weather {
-    overflow-x: scroll;
+    position: relative;
+    overflow-x: auto;
     white-space: nowrap;
 }
 
@@ -144,10 +145,10 @@ blockquote > footer > img {
 }
 
 #picture-reel {
+    position: relative;
     height: 150px;
-    -ms-overflow-x: auto;
-        overflow-x: auto;
-        white-space: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 #picture-reel > img {

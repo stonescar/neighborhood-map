@@ -227,6 +227,8 @@ function getWeather() {
                     temp[0] + '° / ' + temp[1] + '°</div>');
             }
 
+            $('#weather').perfectScrollbar({suppressScrollY: true, useBothWheelAxes: true, wheelSpeed: 0.5});
+
             function getWeekDay(date) {
                 var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
                     'Thursday', 'Friday', 'Saturday'];
@@ -278,6 +280,10 @@ function openModal() {
             my.viewModel.activeSpot().marker(markers[my.viewModel.activeSpot().id]);
         }
         $('#infoModal').modal('show');
+        // Make sure pictures are loaded before initializing scroll bar
+        window.setTimeout(function() {
+            $('#picture-reel').perfectScrollbar({suppressScrollY: true, useBothWheelAxes: true, wheelSpeed: 0.5});
+        }, 1000);
     }
     function populateDomFsTip() {
         var marker = my.viewModel.activeSpot().marker();
@@ -304,7 +310,6 @@ function openModal() {
         var marker = my.viewModel.activeSpot().marker();
         // Add rating
         if (marker.fs_id) {
-            console.log(marker.fs_id);
             if (marker.fs_rating) {
                 $('#fs-rating').prepend(marker.fs_rating).show();
             } else {
@@ -338,7 +343,7 @@ function openModal() {
                 $('#links').append('<a href="' + marker.webpage +
                     '" class="btn btn-primary btn-xs btn-block" target="new">Webpage</a>');
             }
-            if (marker.url) {
+            if (marker.fs_url) {
                 $('#links').append('<a href="' + marker.fs_url +
                     '" class="btn btn-danger btn-xs btn-block" target="new">Foursquare page</a>');
             }
@@ -362,3 +367,5 @@ function openModal() {
         }
     }
 }
+
+$('.list-group').perfectScrollbar({suppressScrollX: true, wheelSpeed: 0.5});
