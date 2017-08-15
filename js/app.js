@@ -21,6 +21,7 @@ var viewModel = function() {
     this.setActiveSpot = function(spot) {
         self.activeSpot(spot);
         openInfoWindow(markers[spot.id]);
+        collapseOnMobile();
     }
 
     this.clearActiveSpot = function() {
@@ -58,6 +59,20 @@ $(document).on('hide.bs.modal', '#infoModal', function() {
         $('#flickr').html('');
         $('#fs-review').html('');
 });
+
+$(window).on('resize', function() {
+    collapseOnMobile();
+});
+
+$(document).ready(collapseOnMobile());
+
+function collapseOnMobile() {
+    if ($(window).width() < 768) {
+        $('#spots-menu').collapse('hide');
+    } else {
+        $('#spots-menu').collapse('show');
+    }
+}
 
 // This makes attributes and methods accessible outside the
 // viewModel, using the `my.viewModel` name space
