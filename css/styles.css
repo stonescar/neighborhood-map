@@ -1,3 +1,7 @@
+/*
+ *  GENERAL RULES
+ */
+
 * {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
@@ -12,12 +16,33 @@ body {
     overflow: hidden;
 }
 
-.navbar {
-    margin: 0;
+.page {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    padding: 0;
 }
 
-.row {
+.page > .row {
+    height: calc(100% - 40px);
+    margin: 0;
     position: relative;
+}
+
+#map {
+    height: 100%;
+    padding: 0;
+    color: #2b3e50;
+}
+
+
+/*
+ *  NAVBAR
+ */
+
+.navbar {
+    margin: 0;
 }
 
 .icon-bar {
@@ -34,22 +59,14 @@ body {
     display: none;
 }
 
-/* fixing a bug in bootstrap  */
+
+/*
+ *  LIST GROUP MENU
+ */
+
 .list-group-item.active {
+    /* fixing a bug in bootstrap  */
     border: 1px solid transparent!important;
-}
-
-.page {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    padding: 0;
-}
-
-.page > .row {
-    height: calc(100% - 40px);
-    margin: 0;
 }
 
 .spots-menu {
@@ -60,12 +77,6 @@ body {
 #spots-list {
     height: 100%;
     position: relative;
-}
-
-#map {
-    height: 100%;
-    padding: 0;
-    color: #2b3e50;
 }
 
 .input-group {
@@ -88,12 +99,20 @@ body {
     cursor: pointer;
 }
 
-/* INFOWINDOW ELEMENTS */
+
+/*
+ *  INFOWINDOW ELEMENTS 
+ */
+
 h4 > small {
     color: #888;
 }
 
-/* MODAL WEATHER*/
+
+/*
+ *  WEATHER MODAL
+ */
+
 #weather {
     position: relative;
     overflow-x: auto;
@@ -111,7 +130,11 @@ h4 > small {
     display: block;
 }
 
-/* MODAL ELEMENTS*/
+
+/*
+ *  MODAL ELEMENTS
+ */
+
 .modal-header {
     position: relative;
 }
@@ -179,7 +202,12 @@ blockquote > footer > img {
     line-height: 1.2;
 }
 
-/* BREAKPOINTS */
+
+/*
+ *  BREAKPOINTS
+ */
+
+/* Adjust info modal content on width < 550px */ 
 @media screen and (max-width: 550px) {
     #address-col {
         width: 50%;
@@ -210,6 +238,7 @@ blockquote > footer > img {
     }
 }
 
+/* Mobile */
 @media screen and (max-width: 767px) {
     #spots-menu {
         position: absolute;
@@ -231,6 +260,7 @@ blockquote > footer > img {
     }
 }
 
+/* Width > 768px */
 @media screen and (min-width: 768px) {
     .icon-link:hover .icon-link-description {
         display: inline;
