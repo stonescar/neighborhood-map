@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="container page">
+        <!-- Navbar -->
         <nav class="navbar navbar-inverted">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -27,14 +28,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="#" class="navbar-brand"><b>Neighborhood map</b></a>
+                    <!-- Weather button -->
                     <button type="button" class="icon-link btn btn-primary" id="weather-btn" data-toggle="modal" data-target="#weatherModal" onclick="getWeather()">
                         <span class="glyphicon glyphicon-cloud"></span>
                         <span class="icon-link-description sm-visible">Weather</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </nav>
         <div class="row">
+            <!-- Item list menu -->
             <div class="col-sm-3 spots-menu collapse" id="spots-menu">
                 <div class="input-group">
                     <label for="filter-text" class="sr-only">Filter spots</label>
@@ -50,11 +53,11 @@
                 <!-- /ko -->
                 </div>
             </div>
-            <div class="col-sm-9" id="map">
-                
-            </div>
+            <!-- Google maps map container -->
+            <div class="col-sm-9" id="map"></div>
         </div>
     </div>
+
 
     <!-- Info modal -->
     <!-- ko if: activeSpot() -->
@@ -64,6 +67,7 @@
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="infoModalLabel" data-bind="text: title"></h4>
+                    <!-- Rating -->
                     <div id="fs-rating" title="Foursquare rating" hidden><span id="fs-rating-of">/10</span></div>
                 </div>
                 <div class="modal-body">
@@ -83,6 +87,7 @@
         </div>
     </div>
     <!-- /ko -->
+
 
     <!-- Weather modal -->
     <div class="modal fade" id="weatherModal" tabindex="-1" role="dialog" aria-labelledby="weatherModalLabel">
