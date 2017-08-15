@@ -282,7 +282,9 @@ function openModal() {
         $('#infoModal').modal('show');
         // Make sure pictures are loaded before initializing scroll bar
         window.setTimeout(function() {
-            $('#picture-reel').perfectScrollbar({suppressScrollY: true, useBothWheelAxes: true, wheelSpeed: 0.5});
+            $('#picture-reel').perfectScrollbar({suppressScrollY: true,
+                                                 useBothWheelAxes: true,
+                                                 wheelSpeed: 0.5});
         }, 1000);
     }
     function populateDomFsTip() {
@@ -334,7 +336,8 @@ function openModal() {
                     '<dl id="hours"></dl></div>');
                 for (var i = 0; i < marker.hours.timeframes.length; i++) {
                     var time = marker.hours.timeframes[i];
-                    $('#hours').append('<dt>' + time.days + '</dt><dd>' + time.open[0].renderedTime + '</dd>');
+                    $('#hours').append('<dt>' + time.days + '</dt><dd>' +
+                        time.open[0].renderedTime + '</dd>');
                 }
             }
             // Add links
@@ -367,5 +370,3 @@ function openModal() {
         }
     }
 }
-
-$('.list-group').perfectScrollbar({suppressScrollX: true, wheelSpeed: 0.5});

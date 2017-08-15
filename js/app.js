@@ -53,27 +53,6 @@ var viewModel = function() {
     }
 }
 
-$(document).on('hide.bs.modal', '#infoModal', function() {
-        my.viewModel.clearActiveSpot();
-        // Clear dynamic DOM elements
-        $('#flickr').html('');
-        $('#fs-review').html('');
-});
-
-$(window).on('resize', function() {
-    collapseOnMobile();
-});
-
-$(document).ready(collapseOnMobile());
-
-function collapseOnMobile() {
-    if ($(window).width() < 768) {
-        $('#spots-menu').collapse('hide');
-    } else {
-        $('#spots-menu').collapse('show');
-    }
-}
-
 // This makes attributes and methods accessible outside the
 // viewModel, using the `my.viewModel` name space
 my.viewModel = new viewModel();
