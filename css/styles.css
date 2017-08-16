@@ -117,6 +117,7 @@ h4 > small {
     position: relative;
     overflow-x: auto;
     white-space: nowrap;
+    font-size: 0;
 }
 
 .weather-day {
@@ -124,6 +125,7 @@ h4 > small {
     width: calc(100% / 7);
     min-width: calc(558px / 7);
     text-align: center;
+    font-size: 15px;
 }
 
 .weather-temp {
