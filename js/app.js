@@ -1,12 +1,37 @@
-var Spot = function(data, id, marker) {
+var Spot = function(data, id) {
     this.name = ko.observable(data.name);
+    this.location = data.location;
     this.id = id;
-    this.marker = ko.observable(marker);
+    this.marker;
+    this.fsId;
+    this.address = ko.observableArray([]);
+    this.phone = ko.observable();
+    this.category = ko.observable();
+    this.links = {
+        website: ko.observable(),
+        facebook: ko.observable(),
+        twitter: ko.observable(),
+        foursquare: ko.observable(),
+        flickr: ko.observable('https://www.flickr.com/search/?text=' + data.name),
+        wikipedia: ko.observable()
+    };
+    this.fsReview = ko.observable({
+        text: ko.observable(),
+        user: ko.observable({
+            name: ko.observable(),
+            picture: ko.observable()
+        }),
+        url: ko.observable(),
+    });
+    this.fsRating = ko.observable();
+    this.hours = ko.observable();
+    this.flickr = ko.observableArray([]);
+    this.fsStatus = ko.observable(null);
+    this.flickrStatus = ko.observable(null);
 }
 
 
 var Weather = function(date, minTemp, maxTemp, description, icon) {
-    // var self = this;
     this.date = ko.observable(new Date(date));
     this.minTemp = ko.observable(Math.round(minTemp));
     this.maxTemp = ko.observable(Math.round(maxTemp));
@@ -41,14 +66,14 @@ var viewModel = function() {
 
     // Create spots from `spots.js`
     for (var i = 0; i < spots.length; i++) {
-        newSpot = new Spot(spots[i], i, markers[i]);
+        newSpot = new Spot(spots[i], i);
         self.spotList.push(newSpot);
     }
 
 
     this.setActiveSpot = function(spot) {
         self.activeSpot(spot);
-        openInfoWindow(markers[spot.id]);
+        openInfoWindow(spot.marker);
         collapseOnMobile();
     }
 
@@ -57,7 +82,7 @@ var viewModel = function() {
     }
 
     this.setActiveFromMarker = function(id) {
-        // Set correct spot as activ when clicking a marker
+        // Set correct spot as active when clicking a marker
         spot = self.getSpotById(id);
         self.activeSpot(spot);
     }
@@ -67,15 +92,20 @@ var viewModel = function() {
     }
 
     this.match = function(spot) {
-        // Checks to see if spot name matches filter query and shows/hides map markers accordingly
-        lo_name = spot.name().toLowerCase();
-        lo_query = self.filterQuery().toLowerCase();
-        if (lo_name.includes(lo_query) || lo_query == '') {
-            showMarker(spot.id);
-            return true;
-        } else {
-            hideMarker(spot.id);
-        }
+        // if (spot.marker) {
+            // Checks to see if spot name matches filter query and shows/hides map markers accordingly
+            lo_name = spot.name().toLowerCase();
+            lo_query = self.filterQuery().toLowerCase();
+            if (lo_name.includes(lo_query) || lo_query == '') {
+                if (spot.marker) {
+                    showMarker(spot.marker);
+                }
+                return true;
+            } else {
+                if (spot.marker) {
+                    hideMarker(spot.marker);
+                }
+            }
     }
 
     this.clearFilter = function() {

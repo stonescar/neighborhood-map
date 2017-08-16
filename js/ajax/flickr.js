@@ -1,29 +1,24 @@
-function getFlickr(marker, callback) {
+function getFlickr(spot) {
     // Requests the 10 most interesting photos from flickr related to the spot
-    // Stores an array of `photo` objects in the `marker` object
-    // Using callback function makes sure the browser doesn't try to
-    // view the photos before they are stored
+    // Pushes objects into the observable array `flickr` in the spot
     url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search';
     url += '&api_key=baeb88409c972395cb9304f5e6ace9a5';
-    url += '&text=' + marker.title + ' trondheim';
+    url += '&text=' + spot.name() + ' trondheim';
     url += '&sort=interestingness-desc&content_type=1&media=photos';
     url += '&extras=owner_name%2C+url_m&per_page=10';
     url += '&format=json&nojsoncallback=1';
     $.getJSON(url, function(data) {
         var photos = data.photos.photo;
-        marker.flickr = [];
         for (var i = 0; i < photos.length; i++) {
             var photo = {
                 photographer: photos[i].ownername,
                 url: photos[i].url_m,
-                title: photos[i].title,
-                heigth: photos[i].height_m,
-                width: photos[i].width_m
+                title: photos[i].title
             };
-            marker.flickr.push(photo);
+            spot.flickr.push(photo);
+            spot.flickrStatus('success');
         }
-        callback();
     }).fail(function() {
-        callback();
+        spot.flickrStatus('fail');
     });
 }

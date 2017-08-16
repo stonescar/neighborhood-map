@@ -36,6 +36,21 @@ body {
     color: #2b3e50;
 }
 
+address > strong,
+address > span,
+address > a {
+    display: block;
+}
+
+.btn-fb {
+    background: #365899;
+    color: #fff;
+}
+
+.btn-fb:hover {
+    background: #2C4A87;
+}
+
 
 /*
  *  NAVBAR
@@ -190,6 +205,7 @@ blockquote > footer > img {
     height: 150px;
     overflow-x: auto;
     white-space: nowrap;
+    font-size: 0;
 }
 
 #picture-reel > img {

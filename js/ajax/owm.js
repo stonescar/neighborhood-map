@@ -16,6 +16,14 @@ function getWeather() {
                                 day.weather[0].description,
                                 day.weather[0].icon));
             }
+            
+
+            // Make sure data is loaded before initializing scroll bar
+            window.setTimeout(function() {
+                $('#weather').perfectScrollbar({suppressScrollY: true,
+                                                     useBothWheelAxes: true,
+                                                     wheelSpeed: 0.5});
+            }, 1000);
         });
     }
 }

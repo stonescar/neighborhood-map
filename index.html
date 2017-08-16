@@ -42,7 +42,7 @@
                 <div class="input-group">
                     <label for="filter-text" class="sr-only">Filter spots</label>
                     <span class="input-group-addon primary"><span class="glyphicon glyphicon-filter"></span></span>
-                    <input type="text" id="filter-text" class="form-control" placeholder="Filter spots" data-bind="textInput: filterQuery, valueUpdate: search">
+                    <input type="text" id="filter-text" class="form-control" placeholder="Filter spots" data-bind="textInput: filterQuery">
                     <!-- ko if: filterQuery() != '' -->
                     <span class="glyphicon glyphicon-remove" id="clear-filter" data-bind="click: clearFilter" title="Clear filter"></span>
                     <!-- /ko -->
@@ -63,17 +63,71 @@
     <!-- ko if: activeSpot() -->
     <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" data-bind="with: activeSpot().marker">
+            <div class="modal-content" data-bind="with: activeSpot">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="infoModalLabel" data-bind="text: title"></h4>
-                    <!-- Rating -->
-                    <div id="fs-rating" title="Foursquare rating" hidden><span id="fs-rating-of">/10</span></div>
+                    <h4 class="modal-title" id="infoModalLabel" data-bind="text: name"></h4>
+                    <!-- ko if: fsRating -->
+                    <div id="fs-rating" title="Foursquare rating" data-bind="visible: fsRating">
+                        <span data-bind="text: fsRating"></span>
+                        <span id="fs-rating-of">/10</span>
+                    </div>
+                    <!-- /ko -->
                 </div>
                 <div class="modal-body">
-                    <div id="flickr"></div>
-                    <div id="fs-info"></div>
-                    <div id="fs-review"></div>
+                    <div id="flickr">
+                        <h4>Pictures from flickr</h4>
+                        <!-- ko if: flickrStatus() == 'success' -->
+                        <div id="picture-reel" data-bind="foreach: flickr">
+                            <img data-bind="attr: {src: url, title: title + ' by ' + photographer}">
+                        </div>
+                        <!-- /ko -->
+                        <h5 class="text-center" data-bind="visible: !flickrStatus()">Loading pictures...</h5>
+                        <h5 class="text-center" data-bind="visible: flickrStatus() == 'fail'">Pictures could not be loaded</h5>
+                    </div>
+                    <div id="fs-info" data-bind="visible: fsStatus() == 'success'">
+                        <h4 data-bind="text: 'Details about ' + name()"></h4>
+                        <div class="row" id="fs-info-cont">
+                            <div class="col-xs-4" id="address-col">
+                                <h5>Address:</h5>
+                                <address>
+                                    <strong data-bind="text: name"></strong>
+                                    <!-- ko foreach: address -->
+                                        <!-- ko if: ($index() != ($parent.address().length - 1)) -->
+                                        <span data-bind="text: $data"></span>
+                                        <!-- /ko -->
+                                    <!-- /ko -->
+                                    <span data-bind="visible: phone, text: phone"></span>
+                                </address>
+                            </div>
+                            <div class="col-xs-4" id="hours-col" data-bind="if: hours">
+                                <h5>Opening hours:</h5>
+                                <dl data-bind="foreach: hours().timeframes">
+                                    <dt data-bind="text: $data.days"></dt>
+                                    <dd data-bind="text: $data.open[0].renderedTime"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-xs-4" id="links">
+                                <h5>Links:</h5>
+                                <a class="btn btn-primary btn-block btn-xs" target="new" data-bind="visible: links.website, attr: {href: links.website}">Website</a>
+                                <a class="btn btn-danger btn-block btn-xs" target="new" data-bind="visible: links.foursquare, attr: {href: links.foursquare}">Foursquare</a>
+                                <a class="btn btn-info btn-fb btn-block btn-xs" target="new" data-bind="visible: links.facebook, attr: {href: 'http://facebook.com/' + links.facebook()}">Facebook</a>
+                                <a class="btn btn-info btn-block btn-xs" target="new" data-bind="visible: links.twitter, attr: {href: 'http://twitter.com/' + links.twitter()}">Twitter</a>
+                                <a class="btn btn-success btn-block btn-xs" target="new" data-bind="visible: links.flickr, attr: {href: links.flickr}">flickr</a>
+                                <a class="btn btn-warning btn-block btn-xs" target="new" data-bind="visible: links.wikipedia, attr: {href: links.wikipedia}">Wikipedia</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fs-review" data-bind="if: fsReview().text()">
+                        <h4>Top tip from Foursquare</h4>
+                        <blockquote class="blockquote-reverse" data-bind="with: fsReview">
+                            <span data-bind="text: text"></span>
+                            <footer data-bind="with: user">
+                                <img data-bind="attr: {src: picture}">
+                                <a target="new" data-bind="text: name, attr: {href: $parent.url}"></a>
+                            </footer>
+                        </blockquote>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="modal-footer-info text-left">
@@ -130,9 +184,10 @@
     <script src="js/ajax/wikipedia.js"></script>
     <script src="js/ajax/owm.js"></script>
     <script src="js/func.js"></script>
-    <script src="js/map.js"></script>
     <script src="js/spots.js"></script>
+    <script src="js/mapfunctions.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/mapinit.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyBn2sIbk7ZZG0AHTUD4Cvl60eV8wwzTB24&v=3&callback=initMap"></script>
 </body>
 </html>
