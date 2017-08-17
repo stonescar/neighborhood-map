@@ -33,4 +33,9 @@ function initMap() {
     }
 
     map.fitBounds(bounds);
+
+    // Make map fit all markers when resizing window
+    google.maps.event.addDomListener(window, 'resize', function() {
+        map.fitBounds(bounds);
+    });
 }
