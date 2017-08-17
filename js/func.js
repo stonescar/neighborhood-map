@@ -2,10 +2,7 @@
 
 //Clear active spot when closing modal
 $(document).on('hide.bs.modal', '#infoModal', function() {
-    my.viewModel.clearActiveSpot();
-    // Clear dynamic DOM elements
-    $('#flickr').html('');
-    $('#fs-review').html('');
+    my.ViewModel.clearActiveSpot();
 });
 
 // When resizing window, collapse menu if width < 768
@@ -22,7 +19,7 @@ $(document).ready(function() {
     // Clear filter on esc key
     $('#filter-text').keypress(function(e) {
         if (e.keyCode == 27) {
-            my.viewModel.clearFilter();
+            my.ViewModel.clearFilter();
         }
     })
 });
@@ -39,7 +36,7 @@ function collapseOnMobile() {
 function openModal() {
     // If information has not been fetched before, call ajax functions
     // Then, show modal
-    var spot = my.viewModel.activeSpot();
+    var spot = my.ViewModel.activeSpot();
     if (!spot.detailed) {
         getFlickr(spot);
         getFsVenueDetails(spot);

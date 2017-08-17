@@ -57,7 +57,7 @@ var Weather = function(date, minTemp, maxTemp, description, icon) {
 };
 
 
-var viewModel = function() {
+var ViewModel = function() {
     var self = this;
     this.spotList = ko.observableArray([]);
     this.activeSpot = ko.observable(null);
@@ -114,9 +114,9 @@ var viewModel = function() {
 };
 
 // This makes attributes and methods accessible outside the
-// viewModel, using the `my.viewModel` name space
+// ViewModel, using the `my.ViewModel` name space
 var my = {};
-my.viewModel = new viewModel();
+my.ViewModel = new ViewModel();
 
 // Apply knockout bindings
-ko.applyBindings(my.viewModel);
+ko.applyBindings(my.ViewModel);

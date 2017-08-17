@@ -44,13 +44,13 @@ function populateInfoWindow(spot, infowindow) {
         
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
-            my.viewModel.clearActiveSpot();
+            my.ViewModel.clearActiveSpot();
         });
     }
 }
 
 function openInfoWindow(marker) {
-    var spot = my.viewModel.getSpotById(marker.id);
+    var spot = my.ViewModel.getSpotById(marker.id);
     if (!spot.fsId) {
         getFsVenue(spot);
     }
@@ -58,8 +58,8 @@ function openInfoWindow(marker) {
     // Animate marker
     marker.setAnimation(google.maps.Animation.BOUNCE);
     // Make sure the correct active marker is set to highligh it in item list
-    if (my.viewModel.activeSpot() != my.viewModel.getSpotById(marker.id)) {
-        my.viewModel.setActiveFromMarker(marker.id);
+    if (my.ViewModel.activeSpot() != my.ViewModel.getSpotById(marker.id)) {
+        my.ViewModel.setActiveFromMarker(marker.id);
     }
     // Stop animation and open info window
     window.setTimeout(function() {

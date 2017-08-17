@@ -12,9 +12,9 @@ function initMap() {
     var bounds = new google.maps.LatLngBounds();
 
     infoWindow = new google.maps.InfoWindow();
-    var spotList = my.viewModel.spotList();
+    var spotList = my.ViewModel.spotList();
 
-    // Add markers to viewModel's `spotList`
+    // Add markers to ViewModel's `spotList`
     for (var i = 0; i < spotList.length; i++) {
 
         var marker = new google.maps.Marker({
