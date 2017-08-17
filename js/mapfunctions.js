@@ -69,9 +69,9 @@ function openInfoWindow(marker) {
 }
 
 function showMarker(marker) {
-    marker.setMap(map);
+    marker.setVisible(true);
 }
 
 function hideMarker(marker) {
-    marker.setMap(null);
+    marker.setVisible(false);
 }
