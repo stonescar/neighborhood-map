@@ -28,7 +28,7 @@ var Spot = function(data, id) {
     this.flickr = ko.observableArray([]);
     this.fsStatus = ko.observable(null);
     this.flickrStatus = ko.observable(null);
-}
+};
 
 
 var Weather = function(date, minTemp, maxTemp, description, icon) {
@@ -54,7 +54,7 @@ var Weather = function(date, minTemp, maxTemp, description, icon) {
                       'July', 'August', 'September', 'October', 'November', 'December'];
         return preDay + ' ' + day + '. ' + months[month] + ' @ ' + hour + ':00';
     }, this);
-}
+};
 
 
 var viewModel = function() {
@@ -75,28 +75,28 @@ var viewModel = function() {
         self.activeSpot(spot);
         openInfoWindow(spot.marker);
         collapseOnMobile();
-    }
+    };
 
     this.clearActiveSpot = function() {
         self.activeSpot(null);
-    }
+    };
 
     this.setActiveFromMarker = function(id) {
         // Set correct spot as active when clicking a marker
         spot = self.getSpotById(id);
         self.activeSpot(spot);
-    }
+    };
 
     this.getSpotById = function(id) {
         return self.spotList()[id];
-    }
+    };
 
     this.match = function(spot) {
         // if (spot.marker) {
             // Checks to see if spot name matches filter query and shows/hides map markers accordingly
             lo_name = spot.name().toLowerCase();
             lo_query = self.filterQuery().toLowerCase();
-            if (lo_name.includes(lo_query) || lo_query == '') {
+            if (lo_name.includes(lo_query) || lo_query === '') {
                 if (spot.marker) {
                     showMarker(spot.marker);
                 }
@@ -106,12 +106,12 @@ var viewModel = function() {
                     hideMarker(spot.marker);
                 }
             }
-    }
+    };
 
     this.clearFilter = function() {
         self.filterQuery('');
-    }
-}
+    };
+};
 
 // This makes attributes and methods accessible outside the
 // viewModel, using the `my.viewModel` name space
