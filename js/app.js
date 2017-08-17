@@ -63,6 +63,7 @@ var ViewModel = function() {
     this.activeSpot = ko.observable(null);
     this.filterQuery = ko.observable('');
     this.weatherForecast = ko.observableArray([]);
+    this.googleMapsFail = ko.observable(false);
 
     // Create spots from `spots.js`
     for (var i = 0; i < spots.length; i++) {

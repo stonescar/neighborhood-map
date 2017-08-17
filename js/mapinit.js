@@ -39,3 +39,7 @@ function initMap() {
         map.fitBounds(bounds);
     });
 }
+
+function mapError() {
+    my.ViewModel.googleMapsFail(true);
+}

@@ -36,6 +36,12 @@ body {
     color: #2b3e50;
 }
 
+.map-error {
+    color: #fff;
+    height: 100%;
+    margin-top: 15%;
+}
+
 address > strong,
 address > span,
 address > a {
