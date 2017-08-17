@@ -103,6 +103,10 @@ address > a {
     left: 0;
 }
 
+#filter-text {
+    font-size: 16px;
+}
+
 #clear-filter {
     position: absolute;
     right: 8px;
