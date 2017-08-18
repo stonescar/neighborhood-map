@@ -120,6 +120,11 @@
                             </div>
                         </div>
                     </div>
+                    <div id="fs-info" data-bind="visible: fsStatus() == 'fail'">
+                        <h4 class="text-center">
+                            Could not get data from Foursquare
+                        </h4>
+                    </div>
                     <div id="fs-review" data-bind="if: fsReview().text()">
                         <h4>Top tip from Foursquare</h4>
                         <blockquote class="blockquote-reverse" data-bind="with: fsReview">
