@@ -42,7 +42,7 @@
                 <div class="input-group">
                     <label for="filter-text" class="sr-only">Filter spots</label>
                     <span class="input-group-addon primary"><span class="glyphicon glyphicon-filter"></span></span>
-                    <input type="text" id="filter-text" class="form-control" placeholder="Filter spots" data-bind="textInput: filterQuery">
+                    <input type="text" id="filter-text" class="form-control" placeholder="Filter spots" data-bind="textInput: filterQuery, esc: clearFilter">
                     <!-- ko if: filterQuery() != '' -->
                     <span class="glyphicon glyphicon-remove" id="clear-filter" data-bind="click: clearFilter" title="Clear filter"></span>
                     <!-- /ko -->

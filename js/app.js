@@ -114,10 +114,25 @@ var ViewModel = function() {
     };
 };
 
+
 // This makes attributes and methods accessible outside the
 // ViewModel, using the `my.ViewModel` name space
 var my = {};
 my.ViewModel = new ViewModel();
+
+
+// Add custom binding to esc key
+ko.bindingHandlers.esc = {
+    init: function(element, valueAccessor) {
+        var action = ko.utils.unwrapObservable(valueAccessor());
+        $(element).keypress(function(event) {
+            if (event.keyCode === 27) {
+                action();
+            }
+        });
+    }
+};
+
 
 // Apply knockout bindings
 ko.applyBindings(my.ViewModel);
