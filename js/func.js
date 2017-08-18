@@ -15,13 +15,6 @@ $(document).ready(function() {
     collapseOnMobile()
     // Initialize perfect scrollbar on list group
     $('.list-group').perfectScrollbar({suppressScrollX: true, wheelSpeed: 0.5});
-
-    // Clear filter on esc key
-    $('#filter-text').keypress(function(e) {
-        if (e.keyCode == 27) {
-            my.ViewModel.clearFilter();
-        }
-    })
 });
 
 function collapseOnMobile() {
