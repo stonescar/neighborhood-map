@@ -102,12 +102,15 @@
                                     <span data-bind="visible: phone, text: phone"></span>
                                 </address>
                             </div>
-                            <div class="col-xs-4" id="hours-col" data-bind="if: hours">
-                                <h5>Opening hours:</h5>
-                                <dl data-bind="foreach: hours().timeframes">
-                                    <dt data-bind="text: $data.days"></dt>
-                                    <dd data-bind="text: $data.open[0].renderedTime"></dd>
-                                </dl>
+                            <div class="col-xs-4" id="hours-col">
+                                <div data-bind="if: hours">
+                                    <h5>Opening hours:</h5>
+                                    <dl data-bind="foreach: hours().timeframes">
+                                        <dt data-bind="text: $data.days"></dt>
+                                        <dd data-bind="text: $data.open[0].renderedTime"></dd>
+                                    </dl>
+                                </div>
+                                <h5 class="text-center" data-bind="visible: fsDetailsFail">Failed to get venue details from Foursquare</h5>
                             </div>
                             <div class="col-xs-4" id="links">
                                 <h5>Links:</h5>
@@ -126,15 +129,16 @@
                             Could not get data from Foursquare
                         </h4>
                     </div>
-                    <div id="fs-review" data-bind="if: fsReview().text()">
+                    <div id="fs-review">
                         <h4>Top tip from Foursquare</h4>
-                        <blockquote class="blockquote-reverse" data-bind="with: fsReview">
+                        <blockquote class="blockquote-reverse" data-bind="with: fsReview, visible: !fsTipsFail">
                             <span data-bind="text: text"></span>
                             <footer data-bind="with: user">
                                 <img data-bind="attr: {src: picture}">
                                 <a target="new" data-bind="text: name, attr: {href: $parent.url}"></a>
                             </footer>
                         </blockquote>
+                        <h5 class="text-center" data-bind="visible: fsTipsFail">Failed to get tips from Foursquare</h5>
                     </div>
                 </div>
                 <div class="modal-footer">

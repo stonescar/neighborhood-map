@@ -28,6 +28,8 @@ var Spot = function(data, id) {
     this.flickr = ko.observableArray([]);
     this.fsStatus = ko.observable(null);
     this.flickrStatus = ko.observable(null);
+    this.fsTipsFail = ko.observable(false);
+    this.fsDetailsFail = ko.observable(false);
 };
 
 

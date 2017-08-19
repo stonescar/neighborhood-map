@@ -51,6 +51,8 @@ function getFsTips(spot) {
             spot.fsReview().user().name(tip.user.firstName + ' ' + (tip.user.lastName || ''));
             spot.fsReview().user().picture(tip.user.photo.prefix + '30x30' + tip.user.photo.suffix);
         }
+    }).fail(function() {
+        spot.fsTipsFail(true);
     });
 }
 
@@ -70,5 +72,7 @@ function getFsVenueDetails(spot) {
         if (venue.hours) {
             spot.hours(venue.hours);
         }
+    }).fail(function() {
+        spot.fsDetailsFail(true);
     });
 }
