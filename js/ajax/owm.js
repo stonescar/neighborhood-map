@@ -3,7 +3,7 @@ function getWeather() {
     var $w = $('#weather');
     // Only get data if not requested before
     if (my.ViewModel.weatherForecast().length == 0) {
-        var url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880' +
+        var url = 'http://api.o111penweathermap.org/data/2.5/forecast/daily?id=3133880' +
             '&appid=18749f71cbf50a133071442141f704eb&cnt=7&units=metric';
         $.getJSON(url, function (data) {
             for (var i = 0; i < data.list.length; i++) {
@@ -24,6 +24,8 @@ function getWeather() {
                                                      useBothWheelAxes: true,
                                                      wheelSpeed: 0.5});
             }, 1000);
+        }).fail(function() {
+            my.ViewModel.weatherFail(true);
         });
     }
 }

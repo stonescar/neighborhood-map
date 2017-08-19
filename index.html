@@ -159,7 +159,7 @@
                     <h4 class="modal-title" id="weatherModalLabel">Weekly forecast for Trondheim</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- ko if: weatherForecast()[0] -->
+                    <!-- ko ifnot: weatherFail -->
                     <div id="weather" data-bind="foreach: weatherForecast">
                         <div class="weather-day">
                             <h5 data-bind="text: $data.weekDay, attr: {title: $data.fullDate }"></h5>
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     <!-- /ko -->
-                    <!-- ko ifnot: weatherForecast()[0] -->
+                    <!-- ko if: weatherFail -->
                     <h4 class="text-center">No weather data could be found</h4>
                     <!-- /ko -->
                 </div>
