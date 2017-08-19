@@ -7,5 +7,7 @@ function getWiki(spot) {
         success: function(data) {
             spot.links.wikipedia(data[3][0]);
         }
+    }).fail(function() {
+        spot.links.wikipedia('FAILED');
     });
 }
